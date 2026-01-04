@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// import Login from "./pages/Login";
 
-function App() {
-  const [count, setCount] = useState(0)
+// export default function App() {
+//   return <Login />;
+// }
+
+
+import { Routes, Route, Navigate } from "react-router-dom";
+import Login from "./pages/Login";
+import Sidebar from "./pages/Sidebar";
+import Proveedores from "./pages/Proveedores";
+import Productos from "./pages/Productos";
+import { Box } from "@mui/material";
+import { useState } from "react";
+
+export default function App() {
+  const [isAuth, setIsAuth] = useState(false);
+
+  if (!isAuth) {
+    return <Login onLogin={() => setIsAuth(true)} />;
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Box sx={{ display: "flex" }}>
+      <Sidebar />
+      <Box sx={{ p: 3, flexGrow: 1 }}>
+        <Routes>
+          <Route path="/" element={<Navigate to="/compras/proveedores" />} />
+          <Route path="/compras/proveedores" element={<Proveedores />} />
+          <Route path="/compras/productos" element={<Productos />} />
+        </Routes>
+      </Box>
+    </Box>
+  );
 }
-
-export default App
