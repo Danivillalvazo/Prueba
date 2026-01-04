@@ -4,7 +4,7 @@ import AppLayout from "../layout/AppLayout";
 import Dashboard from "../pages/Dashboard";
 
 /* 🔐 Protección */
-function ProtectedRoute({ children }: { children: JSX.Element }) {
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const auth = localStorage.getItem("auth") === "true";
   return auth ? children : <Navigate to="/Home" replace />;
 }
