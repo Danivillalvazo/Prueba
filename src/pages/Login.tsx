@@ -6,7 +6,9 @@ import {
   Typography,
   Container,
   Paper,
-  createTheme
+  createTheme, 
+  ThemeProvider,
+  CssBaseline
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { useState } from "react";
@@ -14,8 +16,9 @@ import { useState } from "react";
 // Peticiones
 import { loginService } from "../services/auth.service";
 
-// Tema
-import { createThem, ThemeProvider, CssBaseline } from "@mui/material";
+// Alertas
+import { toast, ToastContainer } from "react-toastify";
+ 
 
 const darkTheme = createTheme({
   palette: {
@@ -31,7 +34,7 @@ type LoginProps = {
 export default function Login({ onLogin }: LoginProps) { 
   const [user, setUser] = useState({
     username: "",
-    password: ""
+    pwd: ""
   });
 
   const [loading, setLoading] = useState(false);
@@ -41,10 +44,13 @@ export default function Login({ onLogin }: LoginProps) {
     setLoading(true);
 
     try {
-      await loginService(user.username, user.password);
+      const result = await loginService(user.username, user.pwd);
+      toast.success("¡Inicio de sesión exitoso!");
+      console.log("Resultado del login:", result);
       onLogin();
     } catch (error) {
-      console.error("Error en el login:", error);
+      toast.error(error instanceof Error ? error.message : "Error desconocido");
+      return
     } finally {
       setLoading(false);
     }
@@ -56,6 +62,15 @@ export default function Login({ onLogin }: LoginProps) {
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
     
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnHover
+        theme="dark"
+      />
 
       <Container maxWidth="xs">
         <Paper elevation={6} sx={{ mt: 10, p: 4 }}>
@@ -80,8 +95,8 @@ export default function Login({ onLogin }: LoginProps) {
               label="Contraseña"
               type="password"
               margin="normal" 
-              value={user.password}
-              onChange={(e) => setUser({ ...user, password: e.target.value })}
+              value={user.pwd}
+              onChange={(e) => setUser({ ...user, pwd: e.target.value })}
             />
 
             <Button

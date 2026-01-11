@@ -1,51 +1,3 @@
-// import {
-//   Drawer,
-//   List,
-//   ListItemButton,
-//   ListItemIcon,
-//   ListItemText,
-//   Toolbar
-// } from "@mui/material";
-// import { Link } from "react-router-dom";
-// import { FcShop, FcBusinessman, FcPackage } from "react-icons/fc";
-
-// export default function Sidebar() {
-//   return (
-//     <Drawer
-//       variant="permanent"
-//       sx={{
-//         width: 240,
-//         [`& .MuiDrawer-paper`]: { width: 240 }
-//       }}
-//     >
-//       <Toolbar>ERP Demo</Toolbar>
-
-//       <List>
-//         <ListItemButton component={Link} to="/">
-//           <ListItemIcon>
-//             <FcShop size={22} />
-//           </ListItemIcon>
-//           <ListItemText primary="Dashboard" />
-//         </ListItemButton>
-
-//         <ListItemButton>
-//           <ListItemIcon>
-//             <FcBusinessman size={22} />
-//           </ListItemIcon>
-//           <ListItemText primary="Proveedores" />
-//         </ListItemButton>
-
-//         <ListItemButton>
-//           <ListItemIcon>
-//             <FcPackage size={22} />
-//           </ListItemIcon>
-//           <ListItemText primary="Productos" />
-//         </ListItemButton>
-//       </List>
-//     </Drawer>
-//   );
-// }
-
 
 import {
   Drawer,
@@ -62,7 +14,7 @@ import {
   Tooltip
 } from "@mui/material";
 
-import { FcShop, FcBusinessman, FcPackage } from "react-icons/fc";
+import { FcShop, FcBusinessman, FcPackage, FcDataSheet  } from "react-icons/fc";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
@@ -107,9 +59,31 @@ export default function Sidebar() {
         </IconButton>
       </Toolbar>
 
-      <Divider sx={{ borderColor: "rgba(255,255,255,0.1)" }} />
+      <Divider sx={{ borderColor: "rgba(255, 255, 255, 0.1)" }} />
 
       <List>
+
+       
+          {/* DASHBOARD */}
+        <Tooltip title={collapsed ? "Dashboard" : ""} placement="right">
+          <ListItemButton
+            component={Link}
+            to="/home"
+            selected={isActive("/home")}
+            sx={{
+              "&.Mui-selected": {
+                backgroundColor: "rgba(255,255,255,0.15)"
+              }
+            }}
+          >
+            <ListItemIcon>
+              <FcDataSheet size={24} />
+            </ListItemIcon>
+
+            {!collapsed && <ListItemText primary="Dashboard" />}
+          </ListItemButton>
+        </Tooltip>
+
         {/* COMPRAS */}
         <Tooltip title={collapsed ? "Compras" : ""} placement="right">
           <ListItemButton
@@ -135,8 +109,8 @@ export default function Sidebar() {
             <Tooltip title={collapsed ? "Proveedores" : ""} placement="right">
               <ListItemButton
                 component={Link}
-                to="/compras/proveedores"
-                selected={isActive("/compras/proveedores")}
+                to="/purchases/suppliers"
+                selected={isActive("/purchases/suppliers")}
                 sx={{
                   pl: collapsed ? 2 : 4,
                   "&.Mui-selected": {
@@ -156,8 +130,8 @@ export default function Sidebar() {
             <Tooltip title={collapsed ? "Productos" : ""} placement="right">
               <ListItemButton
                 component={Link}
-                to="/compras/productos"
-                selected={isActive("/compras/productos")}
+                to="/purchases/products"
+                selected={isActive("/purchases/products")}
                 sx={{
                   pl: collapsed ? 2 : 4,
                   "&.Mui-selected": {

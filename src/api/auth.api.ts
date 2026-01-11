@@ -13,9 +13,14 @@ export const loginApi = async (data: LoginRequest): Promise<LoginResponse> => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-    });
+    }); 
+
+    if(response.status === 401) {
+        throw new Error('Credenciales inválidas');
+    }
+
     if (!response.ok) {
-        throw new Error('Error en la solicitud de login');
+        throw new Error('Error en la solicitd de login');
     }
     return response.json();
 }

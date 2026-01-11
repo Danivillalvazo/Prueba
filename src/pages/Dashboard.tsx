@@ -1,11 +1,12 @@
-import { Grid, Paper, Typography } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import { Paper, Typography } from "@mui/material";
 import StatCard from "../components/StatCard";
 
 export default function Dashboard() {
   return (
     <>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={3}>
+        <Grid size={{ xs:12, md:3 }}>
           <StatCard
             title="Total Purchase Due"
             value="$307,144"
@@ -13,7 +14,7 @@ export default function Dashboard() {
           />
         </Grid>
 
-        <Grid item xs={12} md={3}>
+        <Grid size={{ xs:12, md:3 }}>
           <StatCard
             title="Total Sales Due"
             value="$4,385"
@@ -21,7 +22,7 @@ export default function Dashboard() {
           />
         </Grid>
 
-        <Grid item xs={12} md={3}>
+        <Grid size={{ xs:12, md:3 }}>
           <StatCard
             title="Total Sale Amount"
             value="$385,657"
@@ -29,7 +30,7 @@ export default function Dashboard() {
           />
         </Grid>
 
-        <Grid item xs={12} md={3}>
+        <Grid size={{ xs:12, md:3 }}>
           <StatCard
             title="Total Expense"
             value="$400"

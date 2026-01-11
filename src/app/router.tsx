@@ -2,12 +2,14 @@ import { createBrowserRouter, Navigate, useNavigate } from "react-router-dom";
 import Login from "../pages/Login";
 import AppLayout from "../layout/AppLayout";
 import Dashboard from "../pages/Dashboard";
+import Suppliers from "../pages/Suppliers";
+import Products from "../pages/Products";
 
 /* 🔐 Protección */
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const auth = localStorage.getItem("auth") === "true";
-  return auth ? children : <Navigate to="/Home" replace />;
-}
+// function ProtectedRoute({ children }: { children: React.ReactNode }) {
+//   const auth = localStorage.getItem("auth") === "true";
+//   return auth ? children : <Navigate to="/Home" replace />;
+// }
 
 /* 🔑 Wrapper Login */
 function LoginWrapper() {
@@ -27,20 +29,39 @@ export const router = createBrowserRouter([
     element: <LoginWrapper />
   },
   {
-    path: "/Home",
+    path: "/home",
     element: (
-      <ProtectedRoute>
+      // <ProtectedRoute>
         <AppLayout />
-      </ProtectedRoute>
+      // </ProtectedRoute>
     ),
     children: [
       {
         index: true,
         element: <Dashboard />
+      }, 
+    ]
+  },
+  // compras
+  {
+    path: "/purchases",
+    element: (
+      // <ProtectedRoute>   
+        <AppLayout />
+      // </ProtectedRoute>
+    ),
+    children: [
+      {
+        path: "suppliers",
+        element: <Suppliers />
+      },
+      {
+        path: "products",
+        element: <Products />
       }
     ]
   },
-  /* 🚑 Cualquier ruta rara */
+
   {
     path: "*",
     element: <Navigate to="/" replace />
