@@ -30,7 +30,7 @@ export default function Topbar() {
 
   return (
     <AppBar
-      position="static"
+      position="fixed" 
       elevation={0}
       sx={{ backgroundColor: "#0f172a" }}
     >
